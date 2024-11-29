@@ -70,15 +70,17 @@ module PuppetDB::ParserHelper
                         end
                       end
 
-                      # Return nil to skip the default assignment (handled by nested results)
-                      next ret
+                      ret
                     end
 
-      if ret.include? fact['certname']
-        ret[fact['certname']][name] = value
-      else
-        ret[fact['certname']] = { name => value }
+      if name && value
+        if ret.include? fact['certname']
+          ret[fact['certname']][name] = value
+        else
+          ret[fact['certname']] = { name => value }
+        end
       end
+
       ret
     end
   end
